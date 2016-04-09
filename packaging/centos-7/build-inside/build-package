@@ -18,4 +18,4 @@ cd /out
 # is installing all the things in a separate dir to prevent listing all the files - but it's
 # just personal taste.
 # remember to list all your runtime dependencies, e.g. the shared libraries you link to.
-fpm -t rpm -s dir -n ourcms --version ${VERSION} --description "my cms ${GIT_COMMIT}" -C / /opt
+fpm -t rpm -s dir -n ourcms --version ${VERSION} --description "my cms ${GIT_COMMIT}" --depends libjpeg-turbo --depends zlib -C / /opt
