@@ -1,0 +1,21 @@
+#!/bin/bash -ex
+# we should always set proper ownership before exiting, otherwise
+# the created packages will have root:root ownership and we'll be unable
+# to delete them from our host.
+trap 'chown -R --reference /build-inside/build-package /out/' EXIT
+
+virtualenv ${INSTALL_DIR}
+${INSTALL_DIR}/bin/pip install /source
+# it would be better to choose stable, exact versions.
+source ${INSTALL_DIR}/bin/activate
+cd ${INSTALL_DIR}
+mkdir cms
+cd cms
+djangocms --db sqlite://localhost/project.db --no-input -f -p . ourcms
+
+cd /out
+# this is a standard fpm command. look at fpm's own help. The only thing that I like to do
+# is installing all the things in a separate dir to prevent listing all the files - but it's
+# just personal taste.
+# remember to list all your runtime dependencies, e.g. the shared libraries you link to.
+fpm -t deb -s dir -n ourcms --version ${VERSION} --description "my cms ${GIT_COMMIT}" -C / /opt
