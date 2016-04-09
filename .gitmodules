@@ -1,4 +1,4 @@
-[submodule "django-cms"]
-	path = django-cms
-	url = https://github.com/divio/django-cms.git
-	branch = release/3.2.x
+[submodule "djangocms-installer"]
+	path = djangocms-installer
+	url = https://github.com/nephila/djangocms-installer.git
+	branch = master
