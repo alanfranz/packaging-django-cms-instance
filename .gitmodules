@@ -1,0 +1,4 @@
+[submodule "django-cms"]
+	path = django-cms
+	url = https://github.com/divio/django-cms.git
+	branch = release/3.2.x
