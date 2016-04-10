@@ -16,7 +16,6 @@ docker build --pull -t ${BUILD_IMAGE} build-image
 #clean previous packages. you may want to omit this if
 #you want to preserve them all and have got other means of removing them.
 rm -rf out
-mkdir out
 
 docker run -it --env-file ../env.list --rm -v $(pwd)/build-inside:/build-inside:ro -v ${SRC_DIR}:/source:ro -v $(pwd)/out:/out -w /build-inside ${BUILD_IMAGE} /bin/bash
 #/build-inside/build-package
