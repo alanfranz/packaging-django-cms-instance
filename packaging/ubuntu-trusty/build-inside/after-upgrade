@@ -1,0 +1,3 @@
+#!/bin/bash
+[ -e "/tmp/ourcms.restart" ] && { rm -f /tmp/ourcms.restart ; start ourcms ; }
+exit 0

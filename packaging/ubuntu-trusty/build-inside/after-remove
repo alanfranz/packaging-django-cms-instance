@@ -1,0 +1,4 @@
+#!/bin/bash
+deluser ourcms
+exit 0
+

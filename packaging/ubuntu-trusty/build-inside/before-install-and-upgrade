@@ -1,0 +1,4 @@
+#!/bin/bash
+id -u ourcms || adduser --system --home /opt/ourcms/home --disabled-password --disabled-login ourcms
+(status ourcms | grep 'running') && { touch /tmp/ourcms.restart ; stop ourcms ; }
+exit 0
