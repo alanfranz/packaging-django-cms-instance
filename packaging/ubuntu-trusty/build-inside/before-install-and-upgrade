@@ -1,6 +1,6 @@
 #!/bin/bash
 # WARNING: if anything changes in the config for 'ourcms' user, a usermod should be issued as well
 # to change existing installations' status on upgrade.
-id -u ourcms || adduser --system --home /opt/ourcms/home --disabled-password --disabled-login --group nogroup ourcms
+id -u ourcms || adduser --system --home /opt/ourcms/home --disabled-password --disabled-login --ingroup nogroup ourcms
 (status ourcms | grep 'running') && { touch /tmp/ourcms.restart ; stop ourcms ; }
 exit 0
