@@ -21,4 +21,4 @@ cd /out
 # is installing all the things in a separate dir to prevent listing all the files - but it's
 # just personal taste.
 # remember to list all your runtime dependencies, e.g. the shared libraries you link to.
-fpm -t deb -s dir -n ourcms --version ${VERSION} --description "my cms ${GIT_COMMIT}" --before-install /build-inside/before-install-and-upgrade --before-upgrade /build-inside/before-install-and-upgrade --before-remove /build-inside/before-remove --after-remove /build-inside/after-remove --after-upgrade /build-inside/after-upgrade --depends python --depends libpython2.7 --depends libjpeg8 --depends zlib1g --config-files /opt/ourcms/state / /opt /etc/init/ourcms.conf
+fpm -t deb -s dir -n ourcms --version ${VERSION} --description "my cms ${GIT_COMMIT}" --before-install /build-inside/before-install-and-upgrade --before-upgrade /build-inside/before-install-and-upgrade --before-remove /build-inside/before-remove --after-remove /build-inside/after-remove --after-upgrade /build-inside/after-upgrade --depends python --depends libpython2.7 --depends libjpeg8 --depends zlib1g --config-files /opt/ourcms/state -C / /opt /etc/init/ourcms.conf
