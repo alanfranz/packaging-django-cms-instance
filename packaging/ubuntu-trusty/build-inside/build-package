@@ -10,12 +10,14 @@ ${INSTALL_DIR}/bin/pip install /source
 source ${INSTALL_DIR}/bin/activate
 cd ${INSTALL_DIR}
 mkdir cms
+mkdir state
 cd cms
-djangocms --db sqlite://localhost/project.db --no-input -f -p . ourcms
+djangocms --db sqlite://localhost//${INSTALL_DIR}/state/project.db --no-input -f -p . ourcms
+pip install uwsgi
 
 cd /out
 # this is a standard fpm command. look at fpm's own help. The only thing that I like to do
 # is installing all the things in a separate dir to prevent listing all the files - but it's
 # just personal taste.
 # remember to list all your runtime dependencies, e.g. the shared libraries you link to.
-fpm -t deb -s dir -n ourcms --version ${VERSION} --description "my cms ${GIT_COMMIT}" -C / /opt
+fpm --debug -t deb -s dir -n ourcms --version ${VERSION} --description "my cms ${GIT_COMMIT}" --depends python --depends libpython2.7 --depends libjpeg8 --depends zlib1g -C / /opt
