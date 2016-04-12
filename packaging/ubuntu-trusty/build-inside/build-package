@@ -16,16 +16,20 @@ mkdir cms
 mkdir -m 0750 state
 pushd cms
 djangocms --db sqlite://localhost//${INSTALL_DIR}/state/project.db --no-input -f -p . ourcms
+mv ourcms/settings.py /etc/ourcms-settings.py
+ln -s /etc/ourcms-settings.py ourcms/settings.py
+python manage.py collectstatic --no-input
 popd
 
 chown -R ourcms:nogroup state
 
 pip install uwsgi
-cp -r /build-inside/root/* /
+cd /build-inside/root
+find -type f -exec install -D {} /{} \;
 
 cd /out
 # build the main ourcms deb
-fpm -t deb -s dir -n ourcms --version ${VERSION} --iteration ${BUILD_NUMBER} --description "my cms ${GIT_COMMIT}" --deb-use-file-permissions --deb-no-default-config-files --before-install /build-inside/before-install-and-upgrade --before-upgrade /build-inside/before-install-and-upgrade --before-remove /build-inside/before-remove --after-remove /build-inside/after-remove --after-upgrade /build-inside/after-upgrade --depends python --depends libpython2.7 --depends libjpeg8 --depends zlib1g --config-files /opt/ourcms/state -C / /opt /etc/init/ourcms.conf
+fpm -t deb -s dir -n ourcms --version ${VERSION} --iteration ${BUILD_NUMBER} --description "my cms ${GIT_COMMIT}" --deb-use-file-permissions --deb-no-default-config-files --before-install /build-inside/before-install-and-upgrade --before-upgrade /build-inside/before-install-and-upgrade --before-remove /build-inside/before-remove --after-remove /build-inside/after-remove --after-upgrade /build-inside/after-upgrade --depends python --depends libpython2.7 --depends libjpeg8 --depends zlib1g --config-files /opt/ourcms/state --config-files /etc/ourcms-settings.py -C / /opt /etc/init/ourcms.conf
 
 # then build the optional dependency between ourcms and nginx
 fpm -t deb -s dir -n ourcms-nginx --version ${VERSION} --iteration ${BUILD_NUMBER} --description "nginx config for ourcms ${GIT_COMMIT}" --deb-use-file-permissions --deb-no-default-config-files --depends "ourcms = ${VERSION}-${BUILD_NUMBER}" --depends nginx -C / /etc/nginx/sites-enabled/ourcms
