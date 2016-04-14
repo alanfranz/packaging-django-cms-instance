@@ -6,10 +6,10 @@ GIT_COMMIT=${GIT_COMMIT:-gitcommitstub}
 BUILD_NUMBER=${BUILD_NUMBER:-0}
 
 # some useful variables
-SRC_DIR="$(pwd)/../../djangocms-installer/"
+SRC_DIR="$(pwd)/../../ourcms/"
 CURRENT_DISTRO=$(basename $(pwd))
-BUILD_IMAGE="django-cms-${CURRENT_DISTRO}-build"
-TEST_IMAGE="django-cms-${CURRENT_DISTRO}-test"
+BUILD_IMAGE="ourcms-${CURRENT_DISTRO}-build"
+TEST_IMAGE="ourcms-${CURRENT_DISTRO}-test"
 
 # create the build image from the provided directory
 docker build --pull -t ${BUILD_IMAGE} build-image

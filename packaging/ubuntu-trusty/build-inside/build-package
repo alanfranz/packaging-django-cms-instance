@@ -5,23 +5,20 @@
 trap 'chown -R --reference /build-inside/build-package /out/' EXIT
 
 virtualenv ${INSTALL_DIR}
-${INSTALL_DIR}/bin/pip install /source
-# it would be better to choose stable, exact versions.
-source ${INSTALL_DIR}/bin/activate
-cd ${INSTALL_DIR}
+
 # create the ourcms user; it's easier to chown here rather than manually set the ownership later on.
 /build-inside/before-install-and-upgrade
 
-mkdir cms
-mkdir -m 0750 state
-pushd cms
-djangocms --db sqlite://localhost//${INSTALL_DIR}/state/project.db --no-input -f -p . ourcms
-mv ourcms/settings.py /etc/ourcms-settings.py
-ln -s /etc/ourcms-settings.py ourcms/settings.py
-python manage.py collectstatic --noinput
-popd
-
+cd ${INSTALL_DIR}
+rsync -a /source/* .
 chown -R ourcms:nogroup state
+mv ourcms/ourcms/settings.py /etc/ourcms-settings.py
+ln -s /etc/ourcms-settings.py ourcms/ourcms/settings.py
+
+${INSTALL_DIR}/bin/pip install -r /source/ourcms/requirements.txt
+source bin/activate
+cd ourcms
+python manage.py collectstatic --noinput
 
 pip install uwsgi
 cd /build-inside/root
