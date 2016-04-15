@@ -1,6 +1,4 @@
-import os
 gettext = lambda s: s
-DATA_DIR = os.path.dirname(os.path.dirname(__file__))
 """
 Django settings for ourcms project.
 
@@ -17,6 +15,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_DIR = os.path.join(os.path.dirname(BASE_DIR), "state") 
 
 
 # Quick-start development settings - unsuitable for production
@@ -70,7 +69,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
-STATIC_ROOT = os.path.join(DATA_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'ourcms', 'static'),
@@ -192,7 +191,7 @@ DATABASES = {
         'CONN_MAX_AGE': 0,
         'ENGINE': 'django.db.backends.sqlite3',
         'HOST': 'localhost',
-        'NAME': '{0}/state/project.db'.format(DATA_DIR),
+        'NAME': '{0}/project.db'.format(DATA_DIR),
         'PASSWORD': '',
         'PORT': '',
         'USER': ''

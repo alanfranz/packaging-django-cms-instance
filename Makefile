@@ -6,9 +6,10 @@ installer_env:
 	touch installer_env
 
 ourcms: installer_env
-	mkdir -p ourcms/state
+	mkdir -p  ourcms/state/media 
 	. installer_env/bin/activate
 	cd ourcms ; djangocms --db sqlite://localhost/$$(pwd)/state/project.db --no-input -f -p ourcms ourcms
+	@echo Now fix settings.py adapting DATA_DIR
 
 
 

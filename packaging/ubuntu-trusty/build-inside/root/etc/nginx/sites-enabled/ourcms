@@ -15,7 +15,7 @@ server {
 
     # Django media
     location /media  {
-        alias /opt/ourcms/ourcms/media;  # your Django project's media files - amend as required
+        alias /opt/ourcms/state/media;  # your Django project's media files - amend as required
     }
 
     location /static {

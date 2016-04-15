@@ -11,6 +11,7 @@ virtualenv ${INSTALL_DIR}
 
 cd ${INSTALL_DIR}
 rsync -a /source/* .
+mkdir -p state/media
 chown -R ourcms:nogroup state
 mv ourcms/ourcms/settings.py /etc/ourcms-settings.py
 ln -s /etc/ourcms-settings.py ourcms/ourcms/settings.py
