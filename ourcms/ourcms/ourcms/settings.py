@@ -192,7 +192,7 @@ DATABASES = {
         'CONN_MAX_AGE': 0,
         'ENGINE': 'django.db.backends.sqlite3',
         'HOST': 'localhost',
-        'NAME': '/home/alan/sources/packaging-django-cms-instance/ourcms/state/project.db',
+        'NAME': '{0}/state/project.db'.format(DATA_DIR),
         'PASSWORD': '',
         'PORT': '',
         'USER': ''
